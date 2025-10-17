@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- React CDN links -->
+
+      <!-- React JS -->
+      <script
+        crossorigin
+        src="https://unpkg.com/react@18/umd/react.development.js"
+      ></script>
+
+      <!-- React DOM -->
+      <script
+        crossorigin
+        src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      ></script>
+
+      <script>
+        const heading = React.createElement('h1', {id:'headOne'},'Hello world from React');
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+
+        root.render(heading);
+      </script>
+    </div>
+  </body>
+</html>
+
+<!-- 
+
+SYNTAX:
+
+>> React.createElement(type, props, children)
+
+> type: The tag or component name ('h1')
+
+> props: An object of attributes or properties ({id:'headOne'})
+
+> children: The inner content or nested elements ('Hello world from React')
+
+
+This line returns a React Element (a plain JS object) that looks like:
+
+{
+  type: "h1",
+  props: {
+    children: "Hello world from React"
+  }
+}
+
+
+It’s not yet a real DOM element — it’s a virtual DOM representation that React uses internally
+
+
+>> const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+> ReactDOM.createRoot() initializes a React root in the actual DOM.
+
+> It tells React where to render content — in this case, inside the <div id="root">.
+
+
+>> root.render(heading);
+
+> root.render() tells React to take the React element (heading) and render it into the real DOM.
+
+> React compares the virtual DOM with the actual DOM and updates only what’s necessary (here, it inserts an <h1> node).
+
+
+
+
+If We pass id/className in the second argument
+
+>> 
+const heading = React.createElement(
+  'h1',
+  { id: 'title', className: 'main-heading'},
+  'Hello World'
+);
+
+It returns a React Element Object -
+
+{
+  type: "h1",
+  key: null,
+  ref: null,
+  props: {
+    id: "title",
+    className: "main-heading",
+    children: "Hello world from React"
+  },
+  _owner: null,
+  _store: {}
+}
+
+
+-->
