@@ -46,18 +46,27 @@ h1{
     margin: 5px;
 }
 
-.bodyLayout{
+/* .bodyLayout{
     display: flex;
+
+} */
+
+.cardGrid{
+ display: grid;
+ grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+ /* spacing between cards */
+ gap: 16px; 
 }
 
 .resCard{
-    width: 20%;
+    width: 60%;
+    height: 80%;
     border: 1px solid black;
     padding: 5px;
     margin: 5px;
 }
 
 .resCard img {
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: 60%;
 }

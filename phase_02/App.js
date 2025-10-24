@@ -1,5 +1,8 @@
 import ReactDOM from "react-dom/client";
 import React from "react";
+import resObjExt from "./restaurant";
+
+// console.log(resObjExt, 'RES');
 
 const Header = () => {
   return <div className="header">
@@ -18,23 +21,32 @@ const Header = () => {
   </div>;
 };
 
-const ResCards = () => {
+const ResCards = (resData) => {
+
+  // console.log(resData.resData.info ,'INFO');
+
+  const {name, areaName, costForTwo, cuisines, cloudinaryImageId} = resData?.resData?.info;
+
   return (<div className="resCard">
-    <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2025/6/18/ee1fdf16-ea5f-4a44-9e58-7b3a9dee2618_8614.jpg" alt="imgCard" />
-    <p>Burger Club</p>
-    <p>Ratings: 4.5</p>
-    <p>20 minutes</p>
+    <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"+ cloudinaryImageId} alt="imgCard" />
+    <p>{name}</p>
+    <p>{areaName}</p>
+    <p>{cuisines.join(', ')}</p>
+    <p><b>{costForTwo}</b></p>
   </div>)
 }
 
 const Bodylayout = () => {
   return(<div className="bodyLayout">
-    <ResCards/>
-    <ResCards/>
-    <ResCards/>
-    <ResCards/>
-    <ResCards/>
-
+  <div className="cardGrid">
+      {
+        resObjExt.map((restaurant) => {
+          // console.log(restaurant)
+          //* We're pssing 'key' prop to provide unique id to avoid warnings
+          return <ResCards resData = {restaurant} key={restaurant?.info?.id}/>
+      })
+      }
+</div>
   </div>)
 }
 
