@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import ResCards from "./ResCards";
 // import resObjExt from "../utils/restaurant";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router";
 
 const Bodylayout = () => {
   //* useState hook (always declare hooks inside React component)
@@ -11,8 +12,6 @@ const Bodylayout = () => {
   const [totalRes, setTotalRes] = useState([]);
   const [searchText, setSearchText] = useState("");
 
-  // console.log(resArr);
-  // console.log('TOTAL',totalRes);
   //* fetchData() to get data from an external URL
   const fetchData = async () => {
     try {
@@ -43,7 +42,6 @@ const Bodylayout = () => {
 
   //* useEffect() - Typically placed after state declarations and before return JSX
   useEffect(() => {
-    // console.log("useEffect called");
     fetchData();
   }, []);
 
@@ -94,9 +92,12 @@ const Bodylayout = () => {
       </div>
       <div className="cardGrid">
         {resArr.map((restaurant) => {
-          // console.log(restaurant)
           //* We're passing 'key' prop to provide unique id to avoid warnings
-          return <ResCards resData={restaurant} key={restaurant?.info?.id} />;
+          return (
+            <Link key={restaurant?.info?.id} to={"/restaurants/" + restaurant?.info?.id}>
+              <ResCards resData={restaurant} />
+            </Link>
+          );
         })}
       </div>
     </div>
