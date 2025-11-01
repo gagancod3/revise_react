@@ -1,0 +1,6 @@
+componentDidMount() is used to make API calls
+
+Class-based component lifecycle:
+
+constructor -> Render -> React updates the DOM -> componentDidMount 
+
