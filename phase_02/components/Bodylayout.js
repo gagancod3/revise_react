@@ -5,6 +5,7 @@ import ResCards from "./ResCards";
 // import resObjExt from "../utils/restaurant";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
+import useOnlineStatus from "../utils/customHooks/useOnlineStatus";
 
 const Bodylayout = () => {
   //* useState hook (always declare hooks inside React component)
@@ -45,15 +46,16 @@ const Bodylayout = () => {
     fetchData();
   }, []);
 
-  if (resArr.length === 0) {
-    return (
-      <div>
-        {" "}
-        <Shimmer />{" "}
-      </div>
-    );
+  console.log(useOnlineStatus(), 'status');
+
+  //* CUstom Hook for showing user online status
+  if(useOnlineStatus() === false){
+    return (<h1>Looks like you're offline mate !</h1>)
   }
-  return (
+
+  return (resArr.length === 0 ?
+     (<div><Shimmer /></div>): 
+    (
     <div className="bodyLayout">
       <div className="search-btn">
         <input
@@ -94,13 +96,16 @@ const Bodylayout = () => {
         {resArr.map((restaurant) => {
           //* We're passing 'key' prop to provide unique id to avoid warnings
           return (
-            <Link key={restaurant?.info?.id} to={"/restaurants/" + restaurant?.info?.id}>
+            <Link
+              key={restaurant?.info?.id}
+              to={"/restaurants/" + restaurant?.info?.id}
+            >
               <ResCards resData={restaurant} />
             </Link>
           );
         })}
       </div>
     </div>
-  );
+  ));
 };
 export default Bodylayout;
