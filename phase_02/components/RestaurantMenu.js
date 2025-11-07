@@ -12,19 +12,19 @@ const RestaurantMenu = () => {
   console.log(resID);
   //* API not working since it's designed for Swiggy's internal usage
   
-  // const fetchResMenu = async() => {
-  //     const data = await fetch({RES_URL}+{resID}+'&catalog_qa=undefined&submitAction=ENTER',{
-  //         method: "GET",
-  //         headers: {
-  //           Accept: "application/json",
-  //         },
-  //         mode: "cors",
-  //       });
-  //     console.log(data);
+  const fetchResMenu = async() => {
+      const data = await fetch({RES_URL}+{resID}+'&catalog_qa=undefined&submitAction=ENTER',{
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+          mode: "cors",
+        });
+      console.log(data);
   //   //   const json = await data.json();
   //   //   console.log(json);
 
-  // }
+  }
 
   //* To optimize we can also use a customized hook like below
   const resInfo = useRestaurantMenu(resID);

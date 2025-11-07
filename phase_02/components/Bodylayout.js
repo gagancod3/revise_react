@@ -1,17 +1,20 @@
 //* packages
 import { useState, useEffect } from "react";
 //* accessing files
-import ResCards from "./ResCards";
+import ResCards, { TopRatedRestaurants } from "./ResCards";
 // import resObjExt from "../utils/restaurant";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
 import useOnlineStatus from "../utils/customHooks/useOnlineStatus";
+import { Fetch_Data } from "../utils/common_url";
 
 const Bodylayout = () => {
   //* useState hook (always declare hooks inside React component)
   const [resArr, setResArr] = useState([]);
   const [totalRes, setTotalRes] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const TopRatedRes = TopRatedRestaurants(ResCards);
 
   //* fetchData() to get data from an external URL
   const fetchData = async () => {
@@ -23,14 +26,13 @@ const Bodylayout = () => {
       // const fullUrl = proxyUrl + encodeURIComponent(targetUrl);
       // const data = await fetch(fullUrl);
 
-      const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.63270&lng=77.21980&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-      );
+      const data = await fetch(Fetch_Data);
       const json = await data.json();
       const restaurants =
-        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
       if (restaurants) {
+        console.log("reslist", restaurants);
         setTotalRes(restaurants);
         setResArr(restaurants);
       } else {
@@ -46,16 +48,18 @@ const Bodylayout = () => {
     fetchData();
   }, []);
 
-  console.log(useOnlineStatus(), 'status');
+  console.log(useOnlineStatus(), "status");
 
   //* CUstom Hook for showing user online status
-  if(useOnlineStatus() === false){
-    return (<h1>Looks like you're offline mate !</h1>)
+  if (useOnlineStatus() === false) {
+    return <h1>Looks like you're offline mate !</h1>;
   }
 
-  return (resArr.length === 0 ?
-     (<div><Shimmer /></div>): 
-    (
+  return resArr.length === 0 ? (
+    <div>
+      <Shimmer />
+    </div>
+  ) : (
     <div className="bodyLayout">
       <div className="search-btn">
         <input
@@ -94,18 +98,19 @@ const Bodylayout = () => {
       </div>
       <div className="cardGrid">
         {resArr.map((restaurant) => {
+          // console.log(restaurant?.info?.avgRating, 'rating')
           //* We're passing 'key' prop to provide unique id to avoid warnings
           return (
             <Link
               key={restaurant?.info?.id}
               to={"/restaurants/" + restaurant?.info?.id}
             >
-              <ResCards resData={restaurant} />
+            {restaurant?.info?.avgRating > 4.5 ? <TopRatedRes resData={restaurant} /> : <ResCards resData={restaurant}/> }
             </Link>
           );
         })}
       </div>
     </div>
-  ));
+  );
 };
 export default Bodylayout;

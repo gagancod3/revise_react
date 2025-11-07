@@ -16,4 +16,18 @@ const ResCards = (resData) => {
     </div>
   );
 };
+
+//* Higher Order component
+export const TopRatedRestaurants = (ResCards) => {
+  return(props) => {
+    // console.log('props', props);
+    return (
+      <div>
+        <label><b>Recommended</b></label>
+        <ResCards {...props}/>
+      </div>
+    )
+  }
+}
+
 export default ResCards;
