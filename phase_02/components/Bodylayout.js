@@ -32,7 +32,7 @@ const Bodylayout = () => {
         json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
       if (restaurants) {
-        console.log("reslist", restaurants);
+        // console.log("reslist", restaurants);
         setTotalRes(restaurants);
         setResArr(restaurants);
       } else {
@@ -48,7 +48,7 @@ const Bodylayout = () => {
     fetchData();
   }, []);
 
-  console.log(useOnlineStatus(), "status");
+  // console.log(useOnlineStatus(), "status");
 
   //* CUstom Hook for showing user online status
   if (useOnlineStatus() === false) {
