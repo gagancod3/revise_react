@@ -1,5 +1,5 @@
 //* packages
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 //* accessing files
 import ResCards, { TopRatedRestaurants } from "./ResCards";
 // import resObjExt from "../utils/restaurant";
@@ -8,11 +8,15 @@ import { Link } from "react-router";
 import useOnlineStatus from "../utils/customHooks/useOnlineStatus";
 import { Fetch_Data } from "../utils/common_url";
 
+//* Accessing the Context
+import UserContext from "../utils/UserContext";
+
 const Bodylayout = () => {
   //* useState hook (always declare hooks inside React component)
   const [resArr, setResArr] = useState([]);
   const [totalRes, setTotalRes] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [filter, setFilter] = useState(false);
 
   const TopRatedRes = TopRatedRestaurants(ResCards);
 
@@ -48,9 +52,13 @@ const Bodylayout = () => {
     fetchData();
   }, []);
 
+  //* Using Context
+  const { userName, setUserName } = useContext(UserContext);
+  // console.log(userName, "body user");
+
   // console.log(useOnlineStatus(), "status");
 
-  //* CUstom Hook for showing user online status
+  //* Custom Hook for showing user online status
   if (useOnlineStatus() === false) {
     return <h1>Looks like you're offline mate !</h1>;
   }
@@ -61,40 +69,53 @@ const Bodylayout = () => {
     </div>
   ) : (
     <div className="bodyLayout">
-      <div className="search-btn">
-        <input
-          type="text"
-          className="search-box"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+      <div className="bodyUpper">
+        <div className="search-btn">
+          <input
+            type="text"
+            className="search-box"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
 
-        <button
-          onClick={() => {
-            const searchedRestaurant = totalRes.filter((res) =>
-              res.info.name.toLowerCase().includes(searchText.toLowerCase())
-            );
-            // console.log(searchedRestaurant);
-            setResArr(searchedRestaurant);
-          }}
-        >
-          Search
-        </button>
-      </div>
-      <div className="filter-btn">
-        <button
-          onClick={() => {
-            const filteredRes = resArr.filter(
-              (res) => res.info.avgRating > 4.3
-            );
-            // console.log(filteredRes, "filtered");
-            setResArr(filteredRes);
-          }}
-        >
-          Top-rated Restaurants
-        </button>
-        {/* {(filtered === true) &&
-        <button className="filter-btn" onClick={() => {setResArr(resObjExt);}}>Back to Restaurants</button>} */}
+          <button
+            onClick={() => {
+              const searchedRestaurant = totalRes.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+              );
+              // console.log(searchedRestaurant);
+              setResArr(searchedRestaurant);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="filter-btn">
+          <button
+            onClick={() => {
+              if (!filter) {
+                const filteredRes = resArr.filter(
+                  (res) => res.info.avgRating > 4.3
+                );
+                // console.log(filteredRes, "filtered");
+
+                setResArr(filteredRes);
+              } else setResArr(totalRes);
+              // toggle the filter
+              setFilter(!filter);
+            }}
+          >
+            {filter ? "All Restaurants" : "Top-rated Restaurants"}
+          </button>
+        </div>
+
+        <div className="user-input">
+          <h3>UserName :</h3>
+          <input
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </div>
       </div>
       <div className="cardGrid">
         {resArr.map((restaurant) => {
@@ -102,10 +123,15 @@ const Bodylayout = () => {
           //* We're passing 'key' prop to provide unique id to avoid warnings
           return (
             <Link
+              className="resCardLink"
               key={restaurant?.info?.id}
               to={"/restaurants/" + restaurant?.info?.id}
             >
-            {restaurant?.info?.avgRating > 4.5 ? <TopRatedRes resData={restaurant} /> : <ResCards resData={restaurant}/> }
+              {restaurant?.info?.avgRating > 4.5 ? (
+                <TopRatedRes resData={restaurant} />
+              ) : (
+                <ResCards resData={restaurant} />
+              )}
             </Link>
           );
         })}

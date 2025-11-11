@@ -1,5 +1,5 @@
 //* Packages required
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
 
@@ -21,11 +21,29 @@ const Contact = lazy(()=> import('./components/Contact'));
 //* Main App Component
 const Applayout = () => {
 
-  const userName = 'Gagandeep Singh'
+  const [userName, setUserName] = useState('Default User');
+
+  //* Assume, we validate the user
+  const fetchUser = async() => {
+    // const data = await fetch('URL');
+    // const json = data.json();
+    const json = {user: 'Gagandeep Singh'};
+    //* Setting the value of user from api call
+    try{
+        setUserName(json?.user);
+    }
+    catch(e) {
+      console.error(`error received ${e}`);
+    }
+  }
+
+  useEffect(()=> {
+    fetchUser();
+  },[]);
 
   return (
     //* Kept our main App component inside the <Context.Provider> tag so object is accessible throughout our app 
-    <UserContext.Provider value={{userName}}> 
+    <UserContext.Provider value={{userName, setUserName}}> 
     <div id="appLayout">
       <Header />
       <Outlet />

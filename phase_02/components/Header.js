@@ -9,6 +9,7 @@ const Header = () => {
 
   //* Array destructuring the context object to access value easily
   const {userName} = useContext(UserContext);
+
   // console.log(userName, 'user');
 
   //* In case we don't want to use array-destructuring

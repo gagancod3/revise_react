@@ -13,18 +13,19 @@ const ResCards = (resData) => {
         <b>{costForTwo}</b>
       </p>
       <p>{avgRating} ⭐</p>
+      {resData?.cardDecor ? <p>{resData?.cardDecor}</p> : null}
     </div>
   );
 };
 
 //* Higher Order component
 export const TopRatedRestaurants = (ResCards) => {
+  const cardDecor = 'Recommended💖';
   return(props) => {
     // console.log('props', props);
     return (
       <div>
-        <label><b>Recommended</b></label>
-        <ResCards {...props}/>
+        <ResCards {...props} cardDecor={cardDecor}/>
       </div>
     )
   }

@@ -51,6 +51,16 @@ h1 {
 
 } */
 
+.bodyUpper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.user-input{
+  display: flex;
+}
+
 .cardGrid {
   display: flex;
   flex-wrap: wrap;
@@ -67,6 +77,10 @@ h1 {
 .resCard img {
   width: 100%;
   height: 60%;
+}
+
+.resCardLink{
+  text-decoration: none;
 }
 
 .shimmer-div{
