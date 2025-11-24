@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "title": "The Great Adventure",
+        "poster": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4"
+    },
+    {
+        "id": 2,
+        "title": "Mystery of the Night",
+        "poster": "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        "videoUrl": "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
+    },
+    {
+        "id": 3,
+        "title": "Comedy Hour",
+        "poster": "https://images.unsplash.com/photo-1521335629791-ce4aec67dd47",
+        "videoUrl": "https://sample-videos.com/video123/mp4/720/sample_960x540.mp4"
+    },
+    {
+        "id": 4,
+        "title": "Sci-Fi Universe",
+        "poster": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+        "videoUrl": "https://www.w3schools.com/html/movie.mp4"
+    },
+    {
+        "id": 5,
+        "title": "Romantic Tales",
+        "poster": "https://images.unsplash.com/photo-1517841905240-472988babdf9",
+        "videoUrl": "https://sample-videos.com/video123/mp4/720/sample_960x540.mp4"
+    }
+]

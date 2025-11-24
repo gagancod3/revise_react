@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Page</title>
+    <!-- CDN Links for React, React-DOM & Babel -->
+    <script
+      src="https://unpkg.com/react@17/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+
+  <body>
+    <h1>React Learning Page</h1>
+    <div id="description"></div>
+    <div id="features"></div>
+    <div id="component-features"></div>
+    <div id="jsx-features"></div>
+
+    <script type="text/babel">
+      // Using React.createElement('tag_name', {properties for tag like style, ids & class}, 'data to be added') method 
+      const e = React.createElement(
+        "p",
+        {style:{color:'red'}},
+        "This is a simple React component rendered inside a div."
+      );
+
+    //   const domContainer = document.querySelector("#description");
+      const domContainer = document.getElementById("description");
+      ReactDOM.render(e, domContainer);
+
+      let features = [
+        "Component-Based Architecture",
+        "Declarative UI",
+        "Virtual DOM for Performance",
+        "Strong Community Support",
+      ];
+      const featureElement = React.createElement(
+        "div",
+        { style: { color: "blue" } },
+        React.createElement("h2", {}, "Features of React"),
+        React.createElement(
+          "ul",
+          {},
+          React.createElement("li", {}, features[0]),
+          React.createElement("li", {}, features[1]),
+          React.createElement("li", {}, features[2]),
+          React.createElement("li", {}, features[3])
+        )
+      );
+
+      const domContainer2 = document.querySelector("#features");
+      ReactDOM.render(featureElement, domContainer2);
+
+      //Components which encapsulate logic and UI
+      class Features extends React.Component {
+        features = [
+          "Component-Based Architecture",
+          "Declarative UI",
+          "Virtual DOM for Performance",
+          "Strong Community Support",
+        ];
+        // rendering multiple tags together
+        render() {
+          return React.createElement(
+            "div",
+            { style: { color: "green" } },
+            React.createElement(
+              "h2",
+              {},
+              "Features of React (Using Component)"
+            ),
+            React.createElement(
+              "ul",
+              {},
+              React.createElement("li", {}, this.features[0]),
+              React.createElement("li", {}, this.features[1]),
+              React.createElement("li", {}, this.features[2]),
+              React.createElement("li", {}, this.features[3])
+            )
+          );
+        }
+      }
+
+      const domContainer3 = document.querySelector("#component-features");
+    //   rendering the class component onto the DOM
+      ReactDOM.render(React.createElement(Features), domContainer3); 
+
+      //JSX - JavaScript XML - allows writing HTML in React
+      class FeaturesJSX extends React.Component {
+        features = [
+          "Component-Based Architecture",
+          "Declarative UI",
+          "Virtual DOM for Performance",
+          "Strong Community Support",
+        ];
+        render() {
+          return (
+            <div style={{ color: "purple" }}>
+              <h2>Features of React (Using JSX)</h2>
+              <ul>
+                <li>{this.features[0]}</li>
+                <li>{this.features[1]}</li>
+                <li>{this.features[2]}</li>
+                <li>{this.features[3]}</li>
+              </ul>
+            </div>
+          );
+        }
+      }
+
+      const domContainer4 = document.querySelector("#jsx-features");
+      ReactDOM.render(<FeaturesJSX />, domContainer4);
+    </script>
+  </body>
+</html>

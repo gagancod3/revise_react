@@ -1,0 +1,10 @@
+#theme{
+    float:right;
+}
+button{
+    background-color: antiquewhite;
+    border-radius: 40px;
+    font-size: 100%;
+    padding:10px;
+    font-weight: bold;
+}
